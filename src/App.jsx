@@ -1,16 +1,11 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useRef } from 'react'
 
 // Image imports
-import posterImg from '/images/WhatsApp Image 2026-08-10 at 09.19.57.jpeg'
 import speakerImg from '/images/WhatsApp Image 2026-08-10 at 09.18.01.jpeg'
 import dancingImg from '/images/WhatsApp Image 2026-08-10 at 09.18.02.jpeg'
 import phoneImg from '/images/WhatsApp Image 2026-08-10 at 09.18.02 (1).jpeg'
 import prayingImg from '/images/WhatsApp Image 2026-08-10 at 09.18.02 (2).jpeg'
-import girlPrayingImg from '/images/WhatsApp Image 2026-08-10 at 09.18.02 (3).jpeg'
-import crowdImg from '/images/WhatsApp Image 2026-08-10 at 09.18.03.jpeg'
 import singingImg from '/images/WhatsApp Image 2026-08-10 at 09.18.03 (1).jpeg'
-import stageImg from '/images/WhatsApp Image 2026-08-10 at 09.18.03 (2).jpeg'
-import verseImg from '/images/WhatsApp Image 2026-08-10 at 09.18.03 (3).jpeg'
 
 // Firebase Cloud Function URL — update this after deploying
 // Local: http://127.0.0.1:5001/teens-camp-26/us-central1/register
@@ -34,83 +29,144 @@ const STEPS = [
 ]
 
 function Hero({ onRegister }) {
-  const [scrollY, setScrollY] = useState(0)
-
-  useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY)
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background image with parallax */}
-      <div
-        className="absolute inset-0 z-0"
-        style={{ transform: `translateY(${scrollY * 0.3}px)` }}
-      >
-        <img
-          src={posterImg}
-          alt="Teens Camp 26 Poster"
-          className="w-full h-[120%] object-cover object-center"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-camp-dark/70 via-camp-dark/50 to-camp-dark" />
-        <div className="absolute inset-0 bg-gradient-to-r from-camp-green/10 to-camp-blue/10" />
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-camp-dark">
+      {/* ── Animated mesh gradient background ── */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-camp-dark via-[#0a1628] to-[#0d1f12]" />
+        <div className="hero-orb hero-orb-1" />
+        <div className="hero-orb hero-orb-2" />
+        <div className="hero-orb hero-orb-3" />
+        <div className="hero-orb hero-orb-4" />
       </div>
 
-      {/* Floating decorative elements */}
-      <div className="absolute top-20 left-10 w-16 h-16 rounded-full bg-camp-green/20 blur-xl animate-float" />
-      <div className="absolute top-40 right-20 w-24 h-24 rounded-full bg-camp-blue/20 blur-xl animate-float" style={{ animationDelay: '2s' }} />
-      <div className="absolute bottom-40 left-1/4 w-20 h-20 rounded-full bg-camp-gold/20 blur-xl animate-float" style={{ animationDelay: '4s' }} />
+      {/* ── Grid pattern overlay ── */}
+      <div className="absolute inset-0 z-[1] hero-grid opacity-[0.04]" />
 
-      {/* Content */}
-      <div className="relative z-10 text-center px-6 max-w-4xl mx-auto animate-fade-in">
-        <div className="mb-6">
-          <span className="inline-block px-4 py-2 rounded-full bg-camp-green/20 border border-camp-green/30 text-camp-lime font-body font-bold text-sm tracking-wider uppercase">
-            House of Destiny • The Church in Town
+      {/* ── Animated accent lines ── */}
+      <div className="absolute inset-0 z-[2] overflow-hidden pointer-events-none">
+        <div className="hero-line hero-line-1" />
+        <div className="hero-line hero-line-2" />
+        <div className="hero-line hero-line-3" />
+      </div>
+
+      {/* ── Floating geometric shapes ── */}
+      <div className="absolute inset-0 z-[3] overflow-hidden pointer-events-none">
+        <div className="hero-shape hero-shape-1" />
+        <div className="hero-shape hero-shape-2" />
+        <div className="hero-shape hero-shape-3" />
+        <div className="hero-shape hero-shape-4" />
+        <div className="hero-shape hero-shape-5" />
+        <div className="hero-shape hero-shape-6" />
+      </div>
+
+      {/* ── Dot grid accent ── */}
+      <div className="absolute top-1/4 left-8 z-[3] pointer-events-none">
+        <div className="grid grid-cols-3 gap-3 opacity-20">
+          {Array.from({ length: 9 }).map((_, i) => (
+            <div key={i} className="w-1.5 h-1.5 rounded-full bg-camp-green animate-pulse" style={{ animationDelay: `${i * 0.2}s` }} />
+          ))}
+        </div>
+      </div>
+      <div className="absolute bottom-1/3 right-8 z-[3] pointer-events-none">
+        <div className="grid grid-cols-3 gap-3 opacity-20">
+          {Array.from({ length: 9 }).map((_, i) => (
+            <div key={i} className="w-1.5 h-1.5 rounded-full bg-camp-blue animate-pulse" style={{ animationDelay: `${i * 0.15}s` }} />
+          ))}
+        </div>
+      </div>
+
+      {/* ── Main content ── */}
+      <div className="relative z-10 text-center px-6 md:px-12 max-w-5xl mx-auto space-y-10 md:space-y-14">
+        {/* Church badge */}
+        <div className="hero-fade-up" style={{ animationDelay: '0.1s' }}>
+          <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm">
+            <span className="w-2 h-2 rounded-full bg-camp-green animate-pulse" />
+            <span className="font-body font-bold text-xs tracking-[0.2em] uppercase text-white/50">
+              House of Destiny — The Church in Town
+            </span>
           </span>
         </div>
 
-        <h1 className="font-display text-5xl md:text-7xl lg:text-8xl leading-tight mb-4">
-          <span className="text-gradient">Outpouring</span>
-          <br />
-          <span className="text-white">of the Spirit</span>
-        </h1>
-
-        <div className="inline-block px-6 py-3 rounded-2xl bg-gradient-to-r from-camp-green to-camp-lime mb-8 animate-pulse-glow">
-          <span className="font-display text-2xl md:text-3xl text-camp-dark tracking-wide">
-            Teens Camp '26
-          </span>
+        {/* Main title — dramatic split */}
+        <div className="hero-fade-up space-y-4 md:space-y-6" style={{ animationDelay: '0.25s' }}>
+          <h1 className="font-display leading-[0.9]">
+            <span className="block text-[clamp(3.5rem,11vw,9rem)] text-white/90 hero-title-glow">
+              Outpouring
+            </span>
+          </h1>
+          <h2 className="font-body font-black text-[clamp(1.5rem,4.5vw,3rem)] text-white/35 tracking-[0.15em] uppercase">
+            of the Spirit
+          </h2>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-4 mb-10">
-          <div className="glass-card !p-4 !rounded-xl">
-            <p className="text-camp-lime font-bold text-lg">📅 Aug 20–23, 2026</p>
-          </div>
-          <div className="glass-card !p-4 !rounded-xl">
-            <p className="text-camp-sky font-bold text-lg">🚌 Bus @ 12:00 PM</p>
-          </div>
-          <div className="glass-card !p-4 !rounded-xl">
-            <p className="text-camp-gold font-bold text-lg">📍 27 Harbour Road</p>
+        {/* Camp name — bold badge */}
+        <div className="hero-fade-up" style={{ animationDelay: '0.55s' }}>
+          <div className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-camp-green via-camp-lime to-camp-green hero-glow-border">
+            <span className="font-display text-3xl md:text-4xl text-camp-dark tracking-wide">
+              Teens Camp '26
+            </span>
+            <span className="text-2xl">🔥</span>
           </div>
         </div>
 
-        <button
-          onClick={onRegister}
-          className="btn-primary text-xl px-12 py-5 animate-float"
-        >
-          🔥 Register Now
-        </button>
+        {/* Date strip — modern horizontal */}
+        <div className="hero-fade-up mb-12" style={{ animationDelay: '0.7s' }}>
+          <div className="inline-flex items-stretch rounded-2xl overflow-hidden border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm">
+            <div className="flex items-center gap-3 px-6 py-4 border-r border-white/[0.08]">
+              <span className="text-2xl">📅</span>
+              <div className="text-left">
+                <p className="font-body font-black text-white text-sm leading-tight">Aug 20–23</p>
+                <p className="font-body text-white/40 text-xs">Thursday – Sunday</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 px-6 py-4 border-r border-white/[0.08]">
+              <span className="text-2xl">🚌</span>
+              <div className="text-left">
+                <p className="font-body font-black text-white text-sm leading-tight">12:00 PM</p>
+                <p className="font-body text-white/40 text-xs">Bus Departure</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 px-6 py-4">
+              <span className="text-2xl">📍</span>
+              <div className="text-left">
+                <p className="font-body font-black text-white text-sm leading-tight">27 Harbour Rd</p>
+                <p className="font-body text-white/40 text-xs">Pick-up Point</p>
+              </div>
+            </div>
+          </div>
+        </div>
 
-        <p className="mt-6 text-white/50 font-body text-sm">
-          4 days of worship • fellowship • transformation
-        </p>
+        {/* CTA button */}
+        <div className="hero-fade-up" style={{ animationDelay: '0.85s' }}>
+          <button
+            onClick={onRegister}
+            className="group relative inline-flex items-center gap-3 px-14 py-5 rounded-2xl font-display text-xl text-camp-dark font-bold tracking-wide bg-gradient-to-r from-camp-green to-camp-lime transition-all duration-500 hover:scale-105 hover:shadow-[0_0_60px_rgba(76,175,80,0.4)] active:scale-95"
+          >
+            <span className="relative z-10">Register Now</span>
+            <svg className="relative z-10 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+            {/* Button glow ring */}
+            <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-camp-green to-camp-lime opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500" />
+          </button>
+        </div>
+
+        {/* Tagline */}
+        <div className="hero-fade-up mt-8" style={{ animationDelay: '1s' }}>
+          <p className="font-body text-white/30 text-sm tracking-widest uppercase">
+            4 days of worship · fellowship · transformation
+          </p>
+        </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce z-10">
-        <div className="w-6 h-10 rounded-full border-2 border-white/30 flex items-start justify-center p-1">
-          <div className="w-1.5 h-3 rounded-full bg-white/50 animate-pulse" />
+      {/* ── Scroll indicator ── */}
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 hero-fade-up" style={{ animationDelay: '1.2s' }}>
+        <div className="flex flex-col items-center gap-2">
+          <span className="font-body text-[10px] text-white/20 tracking-[0.3em] uppercase">Scroll</span>
+          <div className="w-5 h-8 rounded-full border border-white/20 flex items-start justify-center p-1">
+            <div className="w-1 h-2 rounded-full bg-camp-green/60 animate-bounce" />
+          </div>
         </div>
       </div>
     </section>
@@ -152,7 +208,7 @@ function ImageGallery() {
 
 function StepIndicator({ currentStep, onStepClick, errors }) {
   return (
-    <div className="flex items-center justify-center gap-2 md:gap-4 mb-10 overflow-x-auto px-4">
+    <div className="flex items-center justify-center gap-2 md:gap-4 mb-14 overflow-x-auto px-4">
       {STEPS.map((step, i) => {
         const isActive = currentStep === step.id
         const isComplete = currentStep > step.id
@@ -160,7 +216,7 @@ function StepIndicator({ currentStep, onStepClick, errors }) {
           if (step.id === 1) return ['fullName', 'dateOfBirth', 'age', 'gender', 'address'].includes(e)
           if (step.id === 2) return ['parentName', 'relationship', 'parentPhone', 'parentEmail'].includes(e)
           if (step.id === 3) return ['transport'].includes(e)
-          if (step.id === 4) return ['consent'].includes(e)
+          if (step.id === 4) return ['consent', 'dataConsent'].includes(e)
           return false
         })
         return (
@@ -519,7 +575,7 @@ function Step3({ formData, handleChange, errors }) {
   )
 }
 
-function Step4({ formData, handleChange, errors }) {
+function Step4({ formData, handleChange, errors, onPrivacyClick }) {
   return (
     <div className="space-y-6 animate-slide-up">
       <div className="flex items-center gap-3 mb-2">
@@ -609,6 +665,7 @@ function Step4({ formData, handleChange, errors }) {
           </span>
           <p className="text-white/40 text-xs mt-1">
             By checking this box, you agree to the consent terms above.
+            {' '}<button type="button" onClick={onPrivacyClick} className="text-camp-green/70 hover:text-camp-green underline underline-offset-2">Privacy & Data Policy</button>
           </p>
         </div>
       </button>
@@ -617,6 +674,47 @@ function Step4({ formData, handleChange, errors }) {
           <span>⚠</span> {errors.consent}
         </p>
       )}
+
+      {/* Data Collection Consent */}
+      <div className="h-px bg-white/10 my-2" />
+      <div className="space-y-2">
+        <button
+          type="button"
+          onClick={() => handleChange({ target: { name: 'dataConsent', type: 'checkbox', checked: !formData.dataConsent } })}
+          className={`checkbox-label w-full text-left !bg-camp-blue/5 !border-camp-blue/20 ${formData.dataConsent ? '!border-camp-blue/50 !bg-camp-blue/10' : ''}`}
+          role="checkbox"
+          aria-checked={formData.dataConsent}
+        >
+          <input
+            type="checkbox"
+            name="dataConsent"
+            checked={formData.dataConsent}
+            onChange={handleChange}
+            className="sr-only"
+            tabIndex={-1}
+          />
+          <div className={`checkbox-mark ${formData.dataConsent ? '!bg-camp-blue !border-camp-blue' : ''}`}>
+            <svg className={`checkbox-check w-3 h-3 text-white ${formData.dataConsent ? 'opacity-100' : 'opacity-0'} transition-opacity`} viewBox="0 0 12 12" fill="none">
+              <path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+          <div>
+            <span className="font-body font-bold text-sm text-white">
+              I consent to the collection and processing of my child's personal data
+            </span>
+            <p className="text-white/40 text-xs mt-1">
+              I have read and understood the
+              {' '}<button type="button" onClick={onPrivacyClick} className="text-camp-blue/80 hover:text-camp-blue underline underline-offset-2">Privacy & Data Collection Policy</button>
+              {' '}and agree to the data practices described therein.
+            </p>
+          </div>
+        </button>
+        {errors.dataConsent && (
+          <p className="text-camp-accent text-xs font-body font-semibold flex items-center gap-1">
+            <span>⚠</span> {errors.dataConsent}
+          </p>
+        )}
+      </div>
     </div>
   )
 }
@@ -658,7 +756,196 @@ function SuccessModal({ formData, onClose }) {
   )
 }
 
-function Footer() {
+function PrivacyPolicy({ onClose }) {
+  return (
+    <div className="fixed inset-0 z-50 flex items-start justify-center p-4 md:p-8 bg-black/80 backdrop-blur-sm overflow-y-auto animate-fade-in">
+      <div className="glass-card max-w-3xl w-full my-8 space-y-8 animate-slide-up">
+        {/* Header */}
+        <div className="flex items-start justify-between">
+          <div>
+            <h2 className="font-display text-2xl md:text-3xl text-gradient mb-2">Privacy & Data Policy</h2>
+            <p className="text-white/40 font-body text-sm">Last updated: August 11, 2026</p>
+          </div>
+          <button onClick={onClose} className="p-2 rounded-xl bg-white/5 hover:bg-white/10 transition-colors">
+            <svg className="w-5 h-5 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        {/* Content */}
+        <div className="space-y-6 font-body text-white/70 text-sm leading-relaxed">
+          <section className="space-y-3">
+            <h3 className="font-display text-lg text-camp-lime">1. Introduction</h3>
+            <p>
+              House of Destiny ("we," "our," or "us") is committed to protecting the privacy and safety
+              of all participants registering for Teens Camp '26. This Privacy & Data Collection Policy
+              explains how we collect, use, store, and protect personal information submitted through
+              our registration form.
+            </p>
+          </section>
+
+          <section className="space-y-3">
+            <h3 className="font-display text-lg text-camp-lime">2. Information We Collect</h3>
+            <p>We collect the following categories of personal data through the registration form:</p>
+            <ul className="list-none space-y-2 ml-4">
+              <li className="flex items-start gap-2">
+                <span className="text-camp-green mt-1">•</span>
+                <span><strong className="text-white">Teenager's Information:</strong> Full name, date of birth, age, gender, phone number (if applicable), and residential address.</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-camp-green mt-1">•</span>
+                <span><strong className="text-white">Parent/Guardian Details:</strong> Full name, relationship to teenager, phone numbers, and email address.</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-camp-green mt-1">•</span>
+                <span><strong className="text-white">Transportation Preferences:</strong> Whether the participant will use the official church bus or private arrangement.</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-camp-green mt-1">•</span>
+                <span><strong className="text-white">Medical & Dietary Information:</strong> Known allergies, current medications, and dosage details.</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-camp-green mt-1">•</span>
+                <span><strong className="text-white">Emergency Contact:</strong> Secondary contact name, relationship, and phone number.</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-camp-green mt-1">•</span>
+                <span><strong className="text-white">Consent:</strong> Parental/guardian signature date and consent acknowledgment.</span>
+              </li>
+            </ul>
+          </section>
+
+          <section className="space-y-3">
+            <h3 className="font-display text-lg text-camp-lime">3. How We Use Your Data</h3>
+            <p>Your personal information is used solely for the following purposes:</p>
+            <ul className="list-none space-y-2 ml-4">
+              <li className="flex items-start gap-2">
+                <span className="text-camp-green mt-1">•</span>
+                <span>Processing and confirming your camp registration</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-camp-green mt-1">•</span>
+                <span>Organizing transportation and logistics for the camp</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-camp-green mt-1">•</span>
+                <span>Ensuring participant safety through medical and emergency information</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-camp-green mt-1">•</span>
+                <span>Contacting parents/guardians regarding camp updates, changes, or emergencies</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-camp-green mt-1">•</span>
+                <span>Record-keeping for administrative and compliance purposes</span>
+              </li>
+            </ul>
+          </section>
+
+          <section className="space-y-3">
+            <h3 className="font-display text-lg text-camp-lime">4. Data Storage & Security</h3>
+            <p>
+              All registration data is stored securely using Google Sheets with access restricted
+              to authorized camp administrators only. We implement appropriate technical and
+              organizational measures to protect your data against unauthorized access, alteration,
+              disclosure, or destruction.
+            </p>
+            <p>
+              Data is transmitted via encrypted HTTPS connections. Physical and digital access to
+              registration records is limited to designated camp coordinators and church leadership.
+            </p>
+          </section>
+
+          <section className="space-y-3">
+            <h3 className="font-display text-lg text-camp-lime">5. Data Retention</h3>
+            <p>
+              Registration data will be retained for a period of 12 months following the conclusion
+              of Teens Camp '26 (until August 2027). After this period, all personal data will be
+              permanently deleted from our systems. Medical information may be retained for an
+              additional 6 months for liability purposes.
+            </p>
+          </section>
+
+          <section className="space-y-3">
+            <h3 className="font-display text-lg text-camp-lime">6. Data Sharing</h3>
+            <p>
+              We do <strong className="text-white">not</strong> sell, trade, or share your personal information
+              with third parties. Your data may be shared only in the following limited circumstances:
+            </p>
+            <ul className="list-none space-y-2 ml-4">
+              <li className="flex items-start gap-2">
+                <span className="text-camp-green mt-1">•</span>
+                <span>With medical professionals in the event of a medical emergency during the camp</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-camp-green mt-1">•</span>
+                <span>With authorized camp leaders who need access to logistical or medical information</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-camp-green mt-1">•</span>
+                <span>When required by law or to comply with legal obligations</span>
+              </li>
+            </ul>
+          </section>
+
+          <section className="space-y-3">
+            <h3 className="font-display text-lg text-camp-lime">7. Parental Rights</h3>
+            <p>As a parent or guardian, you have the right to:</p>
+            <ul className="list-none space-y-2 ml-4">
+              <li className="flex items-start gap-2">
+                <span className="text-camp-green mt-1">•</span>
+                <span><strong className="text-white">Access</strong> — Request a copy of the personal data we hold about your child</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-camp-green mt-1">•</span>
+                <span><strong className="text-white">Correction</strong> — Request correction of any inaccurate data</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-camp-green mt-1">•</span>
+                <span><strong className="text-white">Deletion</strong> — Request deletion of your child's data at any time</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-camp-green mt-1">•</span>
+                <span><strong className="text-white">Withdrawal</strong> — Withdraw consent and cancel registration at any time</span>
+              </li>
+            </ul>
+          </section>
+
+          <section className="space-y-3">
+            <h3 className="font-display text-lg text-camp-lime">8. Contact Us</h3>
+            <p>
+              If you have any questions, concerns, or requests regarding this privacy policy or your
+              personal data, please contact us at:
+            </p>
+            <div className="glass-card !p-4 space-y-1 text-sm">
+              <p><strong className="text-white">House of Destiny</strong></p>
+              <p>📍 27 Harbour Road</p>
+              <p>📞 0816 814 5264</p>
+            </div>
+          </section>
+
+          <section className="space-y-3">
+            <h3 className="font-display text-lg text-camp-lime">9. Consent</h3>
+            <p>
+              By submitting the registration form, you confirm that you are the parent or legal guardian
+              of the participant and you consent to the collection and use of data as described in this
+              policy. You acknowledge that you have read and understood how your child's information
+              will be used.
+            </p>
+          </section>
+        </div>
+
+        {/* Close button */}
+        <button onClick={onClose} className="btn-primary w-full">
+          I Understand — Close
+        </button>
+      </div>
+    </div>
+  )
+}
+
+function Footer({ onPrivacyClick }) {
   return (
     <footer className="py-12 px-6 border-t border-white/5">
       <div className="max-w-4xl mx-auto text-center space-y-4">
@@ -672,6 +959,11 @@ function Footer() {
         <div className="flex flex-wrap justify-center gap-4 text-sm font-body">
           <span className="text-white/50">📍 27 Harbour Road</span>
           <span className="text-white/50">📞 0816 814 5264</span>
+        </div>
+        <div className="flex flex-wrap justify-center gap-4 text-xs font-body mt-4">
+          <button onClick={onPrivacyClick} className="text-camp-green/70 hover:text-camp-green transition-colors underline underline-offset-2">
+            Privacy & Data Policy
+          </button>
         </div>
         <p className="text-white/20 text-xs font-body mt-6">
           © 2026 House of Destiny — Teens Camp '26. All rights reserved.
@@ -714,6 +1006,7 @@ export default function App() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
   const [showForm, setShowForm] = useState(false)
+  const [showPrivacy, setShowPrivacy] = useState(false)
   const formRef = useRef(null)
 
   const handleChange = (e) => {
@@ -735,7 +1028,7 @@ export default function App() {
       if (!formData.fullName.trim()) newErrors.fullName = 'Full name is required'
       if (!formData.dateOfBirth) newErrors.dateOfBirth = 'Date of birth is required'
       if (!formData.age) newErrors.age = 'Age is required'
-      else if (formData.age < 12 || formData.age > 19) newErrors.age = 'Ages 12–19 only'
+      else if (formData.age < 12 || formData.age > 24) newErrors.age = 'Ages 12–24 only'
       if (!formData.gender) newErrors.gender = 'Please select gender'
       if (!formData.address.trim()) newErrors.address = 'Address is required'
     }
@@ -756,6 +1049,7 @@ export default function App() {
     if (step === 4) {
       if (!formData.signatureDate) newErrors.signatureDate = 'Date is required'
       if (!formData.consent) newErrors.consent = 'You must agree to the consent terms'
+      if (!formData.dataConsent) newErrors.dataConsent = 'You must consent to data collection'
     }
 
     setErrors(newErrors)
@@ -823,10 +1117,10 @@ export default function App() {
           <ImageGallery />
 
           {/* Registration Form */}
-          <section ref={formRef} className="py-16 px-4 md:px-6">
+          <section ref={formRef} className="py-20 px-4 md:px-8">
             <div className="max-w-2xl mx-auto">
-              <div className="text-center mb-10">
-                <h2 className="font-display text-3xl md:text-4xl text-gradient mb-3">
+              <div className="text-center mb-14">
+                <h2 className="font-display text-3xl md:text-4xl text-gradient mb-4">
                   Register for Camp
                 </h2>
                 <p className="text-white/50 font-body">
@@ -844,7 +1138,7 @@ export default function App() {
                 {currentStep === 1 && <Step1 formData={formData} handleChange={handleChange} errors={errors} />}
                 {currentStep === 2 && <Step2 formData={formData} handleChange={handleChange} errors={errors} />}
                 {currentStep === 3 && <Step3 formData={formData} handleChange={handleChange} errors={errors} />}
-                {currentStep === 4 && <Step4 formData={formData} handleChange={handleChange} errors={errors} />}
+                {currentStep === 4 && <Step4 formData={formData} handleChange={handleChange} errors={errors} onPrivacyClick={() => setShowPrivacy(true)} />}
 
                 {/* Navigation */}
                 <div className="flex items-center justify-between mt-8 pt-6 border-t border-white/10">
@@ -886,7 +1180,7 @@ export default function App() {
         </>
       )}
 
-      <Footer />
+      <Footer onPrivacyClick={() => setShowPrivacy(true)} />
 
       {showSuccess && (
         <SuccessModal
@@ -899,12 +1193,16 @@ export default function App() {
               parentName: '', relationship: '', parentPhone: '', parentSecondaryPhone: '', parentEmail: '',
               transport: '', hasAllergies: 'No', allergyDetails: '', hasMedication: 'No', medicationDetails: '',
               emergencyName: '', emergencyRelationship: '', emergencyPhone: '',
-              signatureDate: new Date().toISOString().split('T')[0], consent: false,
+              signatureDate: new Date().toISOString().split('T')[0], consent: false, dataConsent: false,
             })
             setCurrentStep(1)
             window.scrollTo({ top: 0, behavior: 'smooth' })
           }}
         />
+      )}
+
+      {showPrivacy && (
+        <PrivacyPolicy onClose={() => setShowPrivacy(false)} />
       )}
     </div>
   )
