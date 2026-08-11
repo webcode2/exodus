@@ -12,6 +12,13 @@ import singingImg from '/images/WhatsApp Image 2026-08-10 at 09.18.03 (1).jpeg'
 import stageImg from '/images/WhatsApp Image 2026-08-10 at 09.18.03 (2).jpeg'
 import verseImg from '/images/WhatsApp Image 2026-08-10 at 09.18.03 (3).jpeg'
 
+// Firebase Cloud Function URL — update this after deploying
+// Local: http://127.0.0.1:5001/teens-camp-26/us-central1/register
+// Deployed: https://us-central1-teens-camp-26.cloudfunctions.net/register
+const API_URL =
+  import.meta.env.VITE_API_URL ||
+  "https://us-central1-teens-camp-26.cloudfunctions.net/register"
+
 const campImages = [
   { src: dancingImg, alt: 'Teens worshipping together' },
   { src: phoneImg, alt: 'Capturing the moment' },
@@ -771,7 +778,7 @@ export default function App() {
 
     setIsSubmitting(true)
     try {
-      const response = await fetch('/api/register', {
+      const response = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
