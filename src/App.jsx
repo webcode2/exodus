@@ -583,15 +583,23 @@ function Step4({ formData, handleChange, errors }) {
       />
 
       {/* Consent checkbox */}
-      <label className="checkbox-label !bg-camp-green/5 !border-camp-green/20">
+      <button
+        type="button"
+        onClick={() => handleChange({ target: { name: 'consent', type: 'checkbox', checked: !formData.consent } })}
+        className={`checkbox-label w-full text-left !bg-camp-green/5 !border-camp-green/20 ${formData.consent ? '!border-camp-green/50 !bg-camp-green/10' : ''}`}
+        role="checkbox"
+        aria-checked={formData.consent}
+      >
         <input
           type="checkbox"
           name="consent"
           checked={formData.consent}
           onChange={handleChange}
+          className="sr-only"
+          tabIndex={-1}
         />
-        <div className="checkbox-mark">
-          <svg className="checkbox-check w-3 h-3 text-white" viewBox="0 0 12 12" fill="none">
+        <div className={`checkbox-mark ${formData.consent ? '!bg-camp-green !border-camp-green' : ''}`}>
+          <svg className={`checkbox-check w-3 h-3 text-white ${formData.consent ? 'opacity-100' : 'opacity-0'} transition-opacity`} viewBox="0 0 12 12" fill="none">
             <path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
@@ -603,7 +611,7 @@ function Step4({ formData, handleChange, errors }) {
             By checking this box, you agree to the consent terms above.
           </p>
         </div>
-      </label>
+      </button>
       {errors.consent && (
         <p className="text-camp-accent text-xs font-body font-semibold flex items-center gap-1">
           <span>⚠</span> {errors.consent}
