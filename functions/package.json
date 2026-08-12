@@ -10,7 +10,7 @@
     "cors": "^2.8.5"
   },
   "engines": {
-    "node": "20"
+    "node": "22"
   },
   "private": true
 }

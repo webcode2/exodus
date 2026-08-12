@@ -1,9 +1,23 @@
 import { onRequest } from "firebase-functions/v2/https";
-import { defineSecret } from "firebase-functions/params";
+import fs from "fs";
+import { fileURLToPath } from "url";
+import path from "path";
 import { appendToSheet, initSheets } from "./sheets.js";
 
-// Store credentials in Firebase Secret Manager (never in code)
-const googleCredentials = defineSecret("GOOGLE_SERVICE_ACCOUNT");
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Read credentials from the functions/credentials folder
+const credentialsPath = path.join(__dirname, 'credentials', 'service-account.json');
+let googleCredentials = null;
+try {
+  googleCredentials = JSON.parse(fs.readFileSync(credentialsPath, 'utf8'));
+} catch (error) {
+  console.error("Could not load credentials from", credentialsPath);
+}
+
+// Spreadsheet ID from the user
+const SPREADSHEET_ID = "1iipZsNmHUSnMpAwEsYhtfwdwwV9HgbXbvPffx7n_--g";
 
 /**
  * POST /register — Append a registration row to Google Sheets
@@ -16,7 +30,6 @@ const googleCredentials = defineSecret("GOOGLE_SERVICE_ACCOUNT");
 export const register = onRequest(
   {
     region: "us-central1",
-    secrets: [googleCredentials],
     cors: true,
   },
   async (req, res) => {
@@ -75,14 +88,15 @@ export const register = onRequest(
         d.signatureDate || "",
       ];
 
-      // Get credentials from Firebase Secret Manager
-      const creds = JSON.parse(googleCredentials.value());
+      if (!googleCredentials) {
+        throw new Error("Google credentials not loaded");
+      }
 
       // Initialize Google Sheets API client
-      const sheets = await initSheets(creds);
+      const sheets = await initSheets(googleCredentials, SPREADSHEET_ID);
 
       // Append to spreadsheet
-      await appendToSheet(sheets, row);
+      await appendToSheet(sheets, row, SPREADSHEET_ID);
 
       console.log(`✅ Registration saved: ${registrationId} — ${d.fullName}`);
 
@@ -95,7 +109,7 @@ export const register = onRequest(
       console.error("❌ Error saving registration:", error);
       return res.status(500).json({
         success: false,
-        error: "Failed to save registration. Please try again.",
+        error: "Failed to save registration: " + (error.message || "Unknown error"),
       });
     }
   }

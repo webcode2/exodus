@@ -1,8 +1,5 @@
 import { google } from "googleapis";
 
-// Spreadsheet ID — set this after creating your Google Sheet
-const SPREADSHEET_ID = process.env.SPREADSHEET_ID || "YOUR_SPREADSHEET_ID_HERE";
-
 // Column headers matching the form fields
 const HEADERS = [
   "Registration ID",
@@ -47,17 +44,17 @@ export async function initSheets(credentials) {
  * Initialize the spreadsheet with headers if empty
  * @param {Object} sheets - Google Sheets API instance
  */
-async function ensureHeaders(sheets) {
+async function ensureHeaders(sheets, spreadsheetId) {
   try {
     const response = await sheets.spreadsheets.values.get({
-      spreadsheetId: SPREADSHEET_ID,
+      spreadsheetId,
       range: "A1:V1",
     });
 
     // If headers don't exist, add them
     if (!response.data.values || response.data.values.length === 0) {
       await sheets.spreadsheets.values.update({
-        spreadsheetId: SPREADSHEET_ID,
+        spreadsheetId,
         range: "A1",
         valueInputOption: "RAW",
         resource: { values: [HEADERS] },
@@ -65,7 +62,7 @@ async function ensureHeaders(sheets) {
 
       // Format header row (bold, frozen, green background)
       await sheets.spreadsheets.batchUpdate({
-        spreadsheetId: SPREADSHEET_ID,
+        spreadsheetId,
         resource: {
           requests: [
             {
@@ -107,14 +104,14 @@ async function ensureHeaders(sheets) {
  * @param {Object} sheets - Google Sheets API instance
  * @param {Array} row - Row data array
  */
-export async function appendToSheet(sheets, row) {
+export async function appendToSheet(sheets, row, spreadsheetId = process.env.SPREADSHEET_ID || "YOUR_SPREADSHEET_ID_HERE") {
   // Ensure headers exist on first use
-  await ensureHeaders(sheets);
+  await ensureHeaders(sheets, spreadsheetId);
 
   // Append the row
   await sheets.spreadsheets.values.append({
-    spreadsheetId: SPREADSHEET_ID,
-    range: "Registrations!A:V",
+    spreadsheetId,
+    range: "A:V",
     valueInputOption: "USER_ENTERED",
     insertDataOption: "INSERT_ROWS",
     resource: {
@@ -123,4 +120,4 @@ export async function appendToSheet(sheets, row) {
   });
 }
 
-export { HEADERS, SPREADSHEET_ID };
+export { HEADERS };

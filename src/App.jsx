@@ -1083,11 +1083,14 @@ export default function App() {
     }
   }
 
+  const [submitError, setSubmitError] = useState('')
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (!validateStep(4)) return
 
     setIsSubmitting(true)
+    setSubmitError('')
     try {
       const response = await fetch(API_URL, {
         method: 'POST',
@@ -1098,13 +1101,11 @@ export default function App() {
       if (response.ok) {
         setShowSuccess(true)
       } else {
-        // Still show success — the form data is valid
-        // The Excel backend may not be running
-        setShowSuccess(true)
+        const errorData = await response.json().catch(() => ({}));
+        setSubmitError(errorData.error || 'Failed to submit registration. Please check if the backend is configured.')
       }
-    } catch {
-      // Backend may not be running — show success anyway
-      setShowSuccess(true)
+    } catch (error) {
+      setSubmitError('Failed to connect to the server. Please check your connection and try again.')
     } finally {
       setIsSubmitting(false)
     }
@@ -1148,6 +1149,15 @@ export default function App() {
                 {currentStep === 2 && <Step2 formData={formData} handleChange={handleChange} errors={errors} />}
                 {currentStep === 3 && <Step3 formData={formData} handleChange={handleChange} errors={errors} />}
                 {currentStep === 4 && <Step4 formData={formData} handleChange={handleChange} errors={errors} onPrivacyClick={() => setShowPrivacy(true)} />}
+
+                {submitError && (
+                  <div className="mt-6 p-4 rounded-xl bg-camp-accent/10 border border-camp-accent/30 text-camp-accent font-body text-sm text-center">
+                    <p className="font-bold flex items-center justify-center gap-2">
+                      <span>⚠</span> Submission Error
+                    </p>
+                    <p className="mt-1 opacity-90">{submitError}</p>
+                  </div>
+                )}
 
                 {/* Navigation */}
                 <div className="mt-8 flex flex-col-reverse gap-3 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
