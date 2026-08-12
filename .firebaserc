@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "teens-camp-26"
-  }
+    "default": "exodus-ceccd"
+  },
+  "targets": {},
+  "etags": {}
 }

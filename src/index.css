@@ -58,6 +58,16 @@
     @apply flex gap-3 flex-wrap;
   }
 
+  @media (max-width: 640px) {
+    .radio-group {
+      @apply flex-col;
+    }
+
+    .radio-label {
+      @apply w-full justify-start;
+    }
+  }
+
   .radio-label {
     @apply flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-white/20
            cursor-pointer transition-all duration-300 font-body font-semibold text-sm
@@ -85,14 +95,15 @@
   }
 
   .btn-primary {
-    @apply relative overflow-hidden px-8 py-4 rounded-2xl font-display text-lg
+    @apply relative overflow-hidden w-full px-8 py-4 rounded-2xl font-display text-lg
            text-white font-bold tracking-wide
            bg-gradient-to-r from-camp-green to-camp-lime
            shadow-lg shadow-camp-green/30
            hover:shadow-xl hover:shadow-camp-green/50 hover:scale-105
            active:scale-95
            transition-all duration-300
-           disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100;
+           disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100
+           sm:w-auto;
   }
 
   .btn-primary::before {
@@ -107,17 +118,19 @@
   }
 
   .btn-secondary {
-    @apply px-6 py-3 rounded-xl font-body font-bold text-sm
+    @apply w-full px-6 py-3 rounded-xl font-body font-bold text-sm
            text-white/80 border-2 border-white/20
            hover:border-white/40 hover:text-white hover:bg-white/5
            active:scale-95
-           transition-all duration-300;
+           transition-all duration-300
+           sm:w-auto;
   }
 
   .glass-card {
-    @apply relative p-8 rounded-3xl
+    @apply relative p-5 rounded-3xl
            bg-white/5 backdrop-blur-xl border border-white/10
-           shadow-2xl shadow-black/20;
+           shadow-2xl shadow-black/20
+           sm:p-8;
   }
 
   .section-number {

@@ -28,5 +28,15 @@ firebase-debug.log
 firestore-debug.log
 ui-debug.log
 
+# Google service account secrets / local credentials
+*.json
+!package*.json
+!tsconfig*.json
+!firebase.json
+!functions/package*.json
+
+# Local generated artifacts
+exodus-ceccd-f02c9244b633.json
+
 # Logs
 *.log

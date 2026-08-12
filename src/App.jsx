@@ -7,12 +7,12 @@ import phoneImg from '/images/WhatsApp Image 2026-08-10 at 09.18.02 (1).jpeg'
 import prayingImg from '/images/WhatsApp Image 2026-08-10 at 09.18.02 (2).jpeg'
 import singingImg from '/images/WhatsApp Image 2026-08-10 at 09.18.03 (1).jpeg'
 
-// Firebase Cloud Function URL — update this after deploying
-// Local: http://127.0.0.1:5001/teens-camp-26/us-central1/register
-// Deployed: https://us-central1-teens-camp-26.cloudfunctions.net/register
+// Firebase Cloud Function URL
+// Local: http://127.0.0.1:5001/exodus-ceccd/us-central1/register
+// Deployed: https://us-central1-exodus-ceccd.cloudfunctions.net/register
 const API_URL =
   import.meta.env.VITE_API_URL ||
-  "https://us-central1-teens-camp-26.cloudfunctions.net/register"
+  "https://us-central1-exodus-ceccd.cloudfunctions.net/register"
 
 const campImages = [
   { src: dancingImg, alt: 'Teens worshipping together' },
@@ -1141,7 +1141,7 @@ export default function App() {
                 {currentStep === 4 && <Step4 formData={formData} handleChange={handleChange} errors={errors} onPrivacyClick={() => setShowPrivacy(true)} />}
 
                 {/* Navigation */}
-                <div className="flex items-center justify-between mt-8 pt-6 border-t border-white/10">
+                <div className="mt-8 flex flex-col-reverse gap-3 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
                   {currentStep > 1 ? (
                     <button type="button" onClick={handlePrev} className="btn-secondary">
                       ← Back
