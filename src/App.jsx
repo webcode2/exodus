@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react'
 
 // Image imports
+import logoImg from '../logo.jpeg'
 import speakerImg from '/images/WhatsApp Image 2026-08-10 at 09.18.01.jpeg'
 import dancingImg from '/images/WhatsApp Image 2026-08-10 at 09.18.02.jpeg'
 import phoneImg from '/images/WhatsApp Image 2026-08-10 at 09.18.02 (1).jpeg'
@@ -80,12 +81,12 @@ function Hero({ onRegister }) {
       <div className="relative z-10 text-center px-6 md:px-12 max-w-5xl mx-auto space-y-10 md:space-y-14">
         {/* Church badge */}
         <div className="hero-fade-up" style={{ animationDelay: '0.1s' }}>
-          <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm">
-            <span className="w-2 h-2 rounded-full bg-camp-green animate-pulse" />
-            <span className="font-body font-bold text-xs tracking-[0.2em] uppercase text-white/50">
-              House of Destiny — The Church in Town
+          <div className="flex flex-col items-center gap-3">
+            <img src={logoImg} alt="Esteems logo" className="h-28 w-28 rounded-full object-cover ring-4 ring-camp-green/40 shadow-[0_0_30px_rgba(76,175,80,0.40)] md:h-32 md:w-32" />
+            <span className="font-display text-xl tracking-[0.12em] text-white/80 md:text-2xl">
+              House of Destiny
             </span>
-          </span>
+          </div>
         </div>
 
         {/* Main title — dramatic split */}
@@ -947,25 +948,33 @@ function PrivacyPolicy({ onClose }) {
 
 function Footer({ onPrivacyClick }) {
   return (
-    <footer className="py-12 px-6 border-t border-white/5">
-      <div className="max-w-4xl mx-auto text-center space-y-4">
-        <div className="flex justify-center gap-4">
-          <img src={speakerImg} alt="Camp speaker" className="w-12 h-12 rounded-full object-cover border-2 border-camp-green/50" />
-          <img src={dancingImg} alt="Teens dancing" className="w-12 h-12 rounded-full object-cover border-2 border-camp-lime/50" />
-          <img src={prayingImg} alt="Teens praying" className="w-12 h-12 rounded-full object-cover border-2 border-camp-blue/50" />
+    <footer className="border-t border-white/5 bg-[#0a1220]/80 py-12 px-6">
+      <div className="mx-auto max-w-5xl text-center">
+        <div className="mb-4 flex items-center justify-center">
+          <div className="rounded-full border border-white/10 bg-white/5 p-2 shadow-lg shadow-camp-green/10 backdrop-blur-sm">
+            <img src={logoImg} alt="Esteems logo" className="h-24 w-24 rounded-full object-cover ring-2 ring-camp-green/40 md:h-28 md:w-28" />
+          </div>
         </div>
-        <p className="font-display text-lg text-gradient">House of Destiny</p>
-        <p className="text-white/40 font-body text-sm">The Church in Town</p>
-        <div className="flex flex-wrap justify-center gap-4 text-sm font-body">
+
+        <p className="font-display text-2xl text-gradient md:text-3xl">House of Destiny</p>
+
+        <div className="mt-6 flex items-center justify-center gap-3">
+          <span className="text-sm uppercase tracking-[0.35em] text-white/40">Powered by</span>
+          <span className="font-display text-2xl md:text-3xl text-gradient tracking-wide">Esteems</span>
+        </div>
+
+        <div className="mt-5 flex flex-wrap justify-center gap-4 text-sm font-body">
           <span className="text-white/50">📍 27 Harbour Road</span>
           <span className="text-white/50">📞 0816 814 5264</span>
         </div>
-        <div className="flex flex-wrap justify-center gap-4 text-xs font-body mt-4">
-          <button onClick={onPrivacyClick} className="text-camp-green/70 hover:text-camp-green transition-colors underline underline-offset-2">
+
+        <div className="mt-5 flex flex-wrap justify-center gap-4 text-xs font-body">
+          <button onClick={onPrivacyClick} className="text-camp-green/70 underline underline-offset-2 transition-colors hover:text-camp-green">
             Privacy & Data Policy
           </button>
         </div>
-        <p className="text-white/20 text-xs font-body mt-6">
+
+        <p className="mt-6 text-xs font-body text-white/20">
           © 2026 House of Destiny — Teens Camp '26. All rights reserved.
         </p>
       </div>
