@@ -10,10 +10,10 @@ import singingImg from '/images/WhatsApp Image 2026-08-10 at 09.18.03 (1).jpeg'
 
 // Firebase Cloud Function URL
 // Local: http://127.0.0.1:5001/exodus-ceccd/us-central1/register
-// Deployed: https://us-central1-exodus-ceccd.cloudfunctions.net/register
+// Deployed: https://register-pq5hnwdpdq-uc.a.run.app
 const API_URL =
   import.meta.env.VITE_API_URL ||
-  "https://us-central1-exodus-ceccd.cloudfunctions.net/register"
+  "https://register-pq5hnwdpdq-uc.a.run.app"
 
 const campImages = [
   { src: dancingImg, alt: 'Teens worshipping together' },
